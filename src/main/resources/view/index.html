@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<!--解决idea thymeleaf 表达式模板报红波浪线-->
+<!--suppress ALL -->
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Threejs</title>
+    <!-- 引入样式 -->
+    <link rel="stylesheet" th:href="@{css/index.css}"/>
+</head>
+<body>
+
+</body>
+<script th:inline="javascript">
+    //项目路径
+    window.ctx = [[${#request.getContextPath()}]];
+</script>
+<!-- script里面要加type="module"，这样浏览器才会把相关的代码当作ES6的module来对待 -->
+<script th:src="@{dist/vendors-main.js}" type="module"></script>
+<script th:src="@{dist/Main.js}" type="module"></script>
+</html>
