@@ -275,15 +275,16 @@ export class EarthService {
         let material = new THREE.MeshBasicMaterial({
             map: texture,
             transparent: true,
-            opacity: 1
+            opacity: 0.8,
+            depthTest:false//在绘制2D叠加时，将多个事物分层在一起而不创建z-index时，禁用深度写入会很有用。
         });
 
         //生成云海
         let kfCloudGroup = new Group();
-        for (let i = 0; i < 8000; i++) {
+        for (let i = 0; i < 4000; i++) {
             let plane = new THREE.Mesh(geometry, material);
-            plane.position.y = -Math.random() * 800;
-            plane.position.x = -Math.random() * 800;
+            plane.position.y = -Math.random() * 500;
+            plane.position.x = -Math.random() * 500;
             plane.position.z = i % 2 === 0 ? Math.random() * 500 : -Math.random() * 500;
 
             plane.rotation.y = Math.PI / 2;
