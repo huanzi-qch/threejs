@@ -71,14 +71,20 @@ export class SceneService {
      * 控制器
      */
     private orbitControls(): void {
+        let thid = this;
         //场景控制器，为了能控制到CSS3D的dom，我们添加的是this.cSS3DRenderer.domElement
-        this.controls = new OrbitControls(this.camera, this.cSS3DRenderer.domElement);
-        //监听
-        window.addEventListener('resize', this.onWindowResize, false);
+        thid.controls = new OrbitControls(thid.camera, thid.cSS3DRenderer.domElement);
+        //监听窗口缩放
+        window.addEventListener('resize', function () {
+            thid.camera.aspect = window.innerWidth / window.innerHeight;
+            thid.camera.updateProjectionMatrix();
 
-        this.controls.target = new THREE.Vector3(0, 0, 0);
-        // this.controls.enableDamping = true;//启用阻尼（惯性）
-        // this.controls.dampingFactor = 1.0;//阻尼惯性有多大
+            thid.renderer.setSize(window.innerWidth, window.innerHeight);
+            thid.cSS2DRenderer.setSize(window.innerWidth, window.innerHeight);
+            thid.cSS3DRenderer.setSize(window.innerWidth, window.innerHeight);
+        }, false);
+
+        thid.controls.target = new THREE.Vector3(0, 0, 0);
     }
 
     /**
@@ -176,25 +182,13 @@ export class SceneService {
     }
 
     /**
-     * 缩放窗口
-     */
-    private onWindowResize(): void {
-        this.camera.aspect = window.innerWidth / window.innerHeight;
-        this.camera.updateProjectionMatrix();
-
-        this.renderer.setSize(window.innerWidth, window.innerHeight);
-        this.cSS2DRenderer.setSize(window.innerWidth, window.innerHeight);
-        this.cSS3DRenderer.setSize(window.innerWidth, window.innerHeight);
-    }
-
-    /**
-     * 封装原生监听对象事件
+     * 添加cSS3DRenderer.domElement监听对象事件，利用原生射线原理
      */
     public addEventListener(listenerObj?: THREE.Object3D, even?: string, callback ?: (object: THREE.Object3D) => void): void {
         let thid = this;
 
-        //threejs原生事件监听 mousedown
-        this.cSS3DRenderer.domElement.addEventListener(even, function (event) {
+        //把具体的事件添加到对象，然后再绑定到dom，这样做的目的是为了方便后期移除
+        listenerObj[even] = function (event) {
             //阻止冒泡
             event.preventDefault();
 
@@ -218,7 +212,17 @@ export class SceneService {
                 // 回调函数，返回被监听对象本身
                 if (callback) callback(listenerObj);
             }
-        }, false);
+        }
+
+        //threejs原生事件监听 mousedown
+        this.cSS3DRenderer.domElement.addEventListener(even,listenerObj[even], false);
+    }
+
+    /**
+     * 移除cSS3DRenderer.domElement监听对象事件
+     */
+    public removeEventListener(listenerObj?: THREE.Object3D, even?: string,):void{
+        this.cSS3DRenderer.domElement.removeEventListener(even,listenerObj[even]);
     }
 
     /**

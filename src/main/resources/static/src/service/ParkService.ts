@@ -40,8 +40,11 @@ export class ParrkService {
 
         //更新控制器
         this.sceneService.controls.target = new THREE.Vector3(0, 0, 0);
+        this.sceneService.controls.enableZoom = true;//启用摄像机的缩放。
+        this.sceneService.controls.enableRotate = true;//启用摄像机水平或垂直旋转
         this.sceneService.controls.enablePan = true;//启用摄像机平移
         this.sceneService.controls.enableKeys = true;//启用键盘控制
+        this.sceneService.controls.keyPanSpeed = 7;//当使用键盘按键的时候，相机平移的速度有多快。默认值为每次按下按键时平移7像素。
         this.sceneService.controls.maxPolarAngle = Math.PI * 0.5;//限制上下可视角度
         this.sceneService.controls.minDistance = 100;//最小缩放
         this.sceneService.controls.maxDistance = 5000;//最大缩放
