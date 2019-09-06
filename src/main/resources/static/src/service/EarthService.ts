@@ -41,7 +41,7 @@ export class EarthService {
         this.sceneService.controls.maxDistance = 80;//最大缩放
 
         //地球稳定自转镜头位置
-        this.earthRotatesSteadilyCameraPosition = new THREE.Vector3(40,0,0);
+        this.earthRotatesSteadilyCameraPosition = new THREE.Vector3(40, 0, 0);
     }
 
     /**
@@ -151,7 +151,7 @@ export class EarthService {
         let thid = this;
 
         //推进镜头
-        thid.sceneService.cameraInspect(-0.5, new THREE.Vector3(thid.earthRotatesSteadilyCameraPosition.x, thid.earthRotatesSteadilyCameraPosition.y, thid.earthRotatesSteadilyCameraPosition.z), function () {
+        thid.sceneService.cameraInspectByPosition(0.5, new THREE.Vector3(thid.earthRotatesSteadilyCameraPosition.x, thid.earthRotatesSteadilyCameraPosition.y, thid.earthRotatesSteadilyCameraPosition.z), function () {
             thid.autoRotationAnimatePlay();
         });
     }
@@ -234,8 +234,7 @@ export class EarthService {
             thid.earth.rotation.set(rotation_x, rotation_y, rotation_z);
         }, function () {
             //再推进镜头
-            let oldPosition = thid.sceneService.camera.position;
-            thid.sceneService.cameraInspect(-0.5, new THREE.Vector3(10, oldPosition.y, oldPosition.z), function () {
+            thid.sceneService.cameraInspectByPosition(0.5, {x:10}, function () {
                 //删除地球
                 // 递归遍历组对象group释放所有后代网格模型绑定几何体占用内存
                 thid.group.traverse(function (obj) {
@@ -276,7 +275,7 @@ export class EarthService {
             map: texture,
             transparent: true,
             opacity: 0.8,
-            depthTest:false//在绘制2D叠加时，将多个事物分层在一起而不创建z-index时，禁用深度写入会很有用。
+            depthTest: false//在绘制2D叠加时，将多个事物分层在一起而不创建z-index时，禁用深度写入会很有用。
         });
 
         //生成云海
@@ -292,10 +291,9 @@ export class EarthService {
             kfCloudGroup.add(plane);
         }
         thid.sceneService.scene.add(kfCloudGroup);
-        window["kfCloudGroup"] = kfCloudGroup;
 
         //再推进镜头
-        thid.sceneService.cameraInspect(-15, new THREE.Vector3(-550, -550, 0), function () {
+        thid.sceneService.cameraInspectByPosition(15, {x:-550,y:-550}, function () {
             //删除云海
             // 递归遍历组对象group释放所有后代网格模型绑定几何体占用内存
             kfCloudGroup.traverse(function (obj) {
@@ -308,7 +306,7 @@ export class EarthService {
             thid.sceneService.scene.remove(kfCloudGroup);
 
             //移除地球dblclick事件监听
-            thid.sceneService.removeEventListener(thid.group,"dblclick");
+            thid.sceneService.removeEventListener(thid.group, "dblclick");
 
             if (callback) callback();
         });

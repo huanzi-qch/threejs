@@ -215,14 +215,14 @@ export class SceneService {
         }
 
         //threejs原生事件监听 mousedown
-        this.cSS3DRenderer.domElement.addEventListener(even,listenerObj[even], false);
+        this.cSS3DRenderer.domElement.addEventListener(even, listenerObj[even], false);
     }
 
     /**
      * 移除cSS3DRenderer.domElement监听对象事件
      */
-    public removeEventListener(listenerObj?: THREE.Object3D, even?: string,):void{
-        this.cSS3DRenderer.domElement.removeEventListener(even,listenerObj[even]);
+    public removeEventListener(listenerObj?: THREE.Object3D, even?: string,): void {
+        this.cSS3DRenderer.domElement.removeEventListener(even, listenerObj[even]);
     }
 
     /**
@@ -253,55 +253,82 @@ export class SceneService {
     }
 
     /**
-     * 镜头巡检、视察，从当前镜头移动到指定position，三个向量值每次增加value
+     * 镜头巡检、视察，从当前镜头位置移动到指定position，三个向量值每次增加或减少value
      */
-    public cameraInspect(value?: number, position?: {}, callback ?: () => void): void {
+    public cameraInspectByPosition(value?: number, position?: {}, callback ?: () => void): void {
         let thid = this;
-        let flag = value >= 0;
+        let x_ = position["x"] && position["x"] - thid.camera.position.x > 0 ? 1 : -1;
+        let y_ = position["y"] &&position["y"] - thid.camera.position.y > 0 ? 1 : -1;
+        let z_ = position["z"] &&position["z"] - thid.camera.position.z > 0 ? 1 : -1;
+        let flagX = false,flagY = false,flagZ = false;
 
-        cameraInspectAnimate();
+        cameraInspectByPositionAnimate();
 
-        function cameraInspectAnimate() {
-            if(flag){
-                if (thid.camera.position.x < position["x"]){
-                    thid.camera.position.x += value;
-                }
-                if (thid.camera.position.y < position["y"]) {
-                    thid.camera.position.y += value;
-                }
-                if (thid.camera.position.z < position["z"]) {
-                    thid.camera.position.z += value;
-                }
+        function cameraInspectByPositionAnimate() {
+            //判断整数部分就可以了
+            if (position["x"] && (parseInt(String(position["x"])) - parseInt(String(thid.camera.position.x)))* x_  > 0) {
+                thid.camera.position.x += value * x_;
             }else{
-                if (thid.camera.position.x > position["x"]) {
-                    thid.camera.position.x += value;
-                }
-                if (thid.camera.position.y > position["y"]) {
-                    thid.camera.position.y += value;
-                }
-                if (thid.camera.position.z > position["z"]) {
-                    thid.camera.position.z += value;
-                }
+                flagX = true;
+            }
+            if (position["y"] &&  (parseInt(String(position["y"])) - parseInt(String(thid.camera.position.y))) * y_ > 0) {
+                thid.camera.position.y += value * y_;
+            }else{
+                flagY = true;
+            }
+            if (position["z"] &&  (parseInt(String(position["z"]))  - parseInt(String(thid.camera.position.z)))* z_ > 0) {
+                thid.camera.position.z += value * z_;
+            }else{
+                flagZ = true;
             }
 
             requestAnimationFrame(function () {
-                if(flag){
-                    if (thid.camera.position.x >= position["x"] &&
-                        thid.camera.position.y >= position["y"] &&
-                        thid.camera.position.z >= position["z"]) {
-                        if (callback) callback();
-                        return;
-                    }
-                }else{
-                    if (thid.camera.position.x <= position["x"] &&
-                        thid.camera.position.y <= position["y"] &&
-                        thid.camera.position.z <= position["z"]) {
-                        if (callback) callback();
-                        return;
-                    }
+                if (flagX && flagY && flagZ) {
+                    if (callback) callback();
+                    return;
+                }
+                cameraInspectByPositionAnimate();
+            });
+        }
+    }
+
+    /**
+     * 镜头巡检、视察，从当前镜头旋转角度旋转到指定rotation，三个向量值每次增加或减少value
+     */
+    public cameraInspectByRotation(value?: number, rotation?: {}, callback ?: () => void): void {
+        let thid = this;
+        let x_ = rotation["x"] && rotation["x"] - thid.camera.position.x > 0 ? 1 : -1;
+        let y_ = rotation["y"] &&rotation["y"] - thid.camera.position.y > 0 ? 1 : -1;
+        let z_ = rotation["z"] &&rotation["z"] - thid.camera.position.z > 0 ? 1 : -1;
+        let flagX = false,flagY = false,flagZ = false;
+
+        cameraInspectByRotationAnimate();
+
+        function cameraInspectByRotationAnimate() {
+            //判断整数部分就可以了
+            if (rotation["x"] && (parseInt(String(rotation["x"])) - parseInt(String(thid.camera.rotation.x)))* x_  > 0) {
+                thid.camera.rotation.x += value * x_;
+            }else{
+                flagX = true;
+            }
+            if (rotation["y"] &&  (parseInt(String(rotation["y"])) - parseInt(String(thid.camera.rotation.y))) * y_ > 0) {
+                thid.camera.rotation.y += value * y_;
+            }else{
+                flagY = true;
+            }
+            if (rotation["z"] &&  (parseInt(String(rotation["z"]))  - parseInt(String(thid.camera.rotation.z)))* z_ > 0) {
+                thid.camera.rotation.z += value * z_;
+            }else{
+                flagZ = true;
+            }
+
+            requestAnimationFrame(function () {
+                if (flagX && flagY && flagZ) {
+                    if (callback) callback();
+                    return;
                 }
 
-                cameraInspectAnimate();
+                cameraInspectByRotationAnimate();
             });
         }
     }

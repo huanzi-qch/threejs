@@ -122,13 +122,14 @@ export class ParrkService {
                                 "<div class=\"number\">编号：001</div>" +
                                 "<div class=\"symbol\">立方体</div>" +
                                 "<div class=\"details\">普通的立方体，2D的label</div>" +
+                                "<div class=\"d3\"></div>"+
                                 "</div>";
 
                             //2D
                             let cSS2DObject = new CSS2DObject($(html)[0]);
                             cSS2DObject.name = "2dLabel";
                             //高度 = 自身高度 / 2 + 父对象高度的 / 2
-                            cSS2DObject.position.y = 120 / 2 + 70 / 2;
+                            cSS2DObject.position.y = 120 / 2 + 120 / 2;
                             object.remove(object.getObjectByName("2dLabel"));
                             object.add(cSS2DObject);
                         });
@@ -184,13 +185,14 @@ export class ParrkService {
                                 "<div class=\"number\">编号：002</div>" +
                                 "<div class=\"symbol\">立方体</div>" +
                                 "<div class=\"details\">普通的立方体，3D的label</div>" +
+                                "<div class=\"d3\"></div>"+
                                 "</div>";
 
                             //3D
                             let cSS3DObject = new CSS3DObject($(html)[0]);
                             cSS3DObject.name = "3dLabel";
                             //高度 = 自身高度 / 2 + 父对象高度的 / 2
-                            cSS3DObject.position.y = 120 / 2 + 70 / 2;
+                            cSS3DObject.position.y = 120 / 2 + 120 / 2;
                             object.remove(object.getObjectByName("3dLabel"));
                             object.add(cSS3DObject);
                         });
