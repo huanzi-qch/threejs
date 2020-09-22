@@ -8,13 +8,13 @@ Threejs基础实例Demo代码，这个例子就是我的学习Demo，主要是�
 ## 运行效果图<br/> 
 
 地球<br/>
-![](https://img2020.cnblogs.com/blog/1353055/202007/1353055-20200717114119289-1574091919.png) <br/>
+![](https://huanzi-qch.gitee.io/file-server/images/threejs-1.png) <br/>
 
 双击地球“穿越云海”过渡动画<br/>
-![](https://img2018.cnblogs.com/blog/1353055/201909/1353055-20190905144605384-545452318.png) <br/>
+![](https://huanzi-qch.gitee.io/file-server/images/threejs-2.png) <br/>
 
 进入到园区场景<br/>
-![](https://img2018.cnblogs.com/blog/1353055/201909/1353055-20190904172532548-949549945.png) <br/>
+![](https://huanzi-qch.gitee.io/file-server/images/threejs-3.png) <br/>
 
 ## 前往博客查看详情<br/> 
 具体介绍请看我的博客[《TypeScript进阶开发——ThreeJs基础实例，从入坑到入门》](https://www.cnblogs.com/huanzi-qch/p/11413739.html ) <br/>
@@ -23,16 +23,16 @@ Threejs基础实例Demo代码，这个例子就是我的学习Demo，主要是�
 有事请加群，有问题进群大家一起交流！
 QQ群名：Java交流群-huanzi-qch
 QQ群号：1015379123
-![](http://huanzi-qch.gitee.io/file-server/images/qq.png) 
-<br/>注：如果图片加载不出来请点击查看[这里](http://huanzi-qch.gitee.io/file-server/images/qq.png)
+![](https://huanzi-qch.gitee.io/file-server/images/qq.png) 
+<br/>注：如果图片加载不出来请点击查看[这里](https://huanzi-qch.gitee.io/file-server/images/qq.png)
 
 ## 捐献<br/>
 请注意，作者五行缺钱，如果喜欢这个项目，请随意打赏！
 
 支付宝<br/>
-![](http://huanzi-qch.gitee.io/file-server/images/zhifubao.png) 
-<br/>注：如果图片加载不出来请点击查看[这里](http://huanzi-qch.gitee.io/file-server/images/zhifubao.png) 
+![](https://huanzi-qch.gitee.io/file-server/images/zhifubao.png) 
+<br/>注：如果图片加载不出来请点击查看[这里](https://huanzi-qch.gitee.io/file-server/images/zhifubao.png) 
 
 微信<br/>
-![](http://huanzi-qch.gitee.io/file-server/images/weixin.png) 
-<br/>注：如果图片加载不出来请点击查看[这里](http://huanzi-qch.gitee.io/file-server/images/weixin.png) 
+![](https://huanzi-qch.gitee.io/file-server/images/weixin.png) 
+<br/>注：如果图片加载不出来请点击查看[这里](https://huanzi-qch.gitee.io/file-server/images/weixin.png) 
