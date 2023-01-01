@@ -13,10 +13,10 @@
   "dependencies": {
     "jquery": "^3.4.1",
     "three": "^0.107.0",
-    "ts-loader": "^6.0.4",
+    "ts-loader": "^9.4.2",
     "typescript": "^3.5.3",
-    "webpack": "^4.39.2",
-    "webpack-cli": "^3.3.7"
+    "webpack": "^5.75.0",
+    "webpack-cli": "^5.0.1"
   },
   "devDependencies": {
     "@types/jquery": "^3.3.31"
